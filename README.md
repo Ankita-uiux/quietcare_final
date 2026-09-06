@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quietcare — Frontend Prototype
 
-## Getting Started
+Quietcare is a mobile-first caregiver experience that turns a parent’s prescription and available medicines into a clear routine, printable pouch labels, packing guidance, and reminder setup.
 
-First, run the development server:
+This repository contains the frontend handoff for the complete happy-flow prototype. Prescription reading, medicine matching, camera capture, and Telegram connection are intentionally simulated so the interaction can be demonstrated reliably without external services.
+
+## Run locally
+
+Requirements: Node.js 20 or newer and npm.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). Every fresh load begins on the Welcome screen.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Validate the code with:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run check
+```
 
-## Learn More
+## Prototype flow
 
-To learn more about Next.js, take a look at the following resources:
+1. Welcome and prescription upload
+2. Prescription review and timing correction
+3. Medicine-photo upload and match review
+4. Routine personalisation
+5. Pouch-label creation and packing guidance
+6. Simulated Telegram connection
+7. Final caregiver Home screen
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The file picker works locally and displays the selected filename. No file is transmitted because this handoff is frontend-only.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project structure
 
-## Deploy on Vercel
+```text
+app/
+  fonts/                   # self-hosted Manrope font files
+  globals.css              # design tokens and complete responsive UI
+  layout.tsx               # application shell and metadata
+  page.tsx                 # Quietcare entry page
+components/
+  quietcare/
+    quietcare-app.tsx      # complete interactive happy flow
+    icons.tsx              # asset-backed icon components
+  ui/
+    button.tsx             # reusable button primitive
+data/
+  mock-data.ts             # demonstration patient and medicine content
+docs/
+  DESIGN_SYSTEM.md         # colors, typography, spacing, and components
+  CODEX_CONTEXT.md         # implementation handoff notes
+lib/
+  routine.ts               # medicine coverage calculation
+public/assets/
+  brand/                   # Quietcare logo
+  icons/                   # interface icons
+  illustrations/           # onboarding and Telegram artwork
+  images/                  # prescription, medicine, and home visuals
+  pouch-labels/            # final pouch-label artwork
+types/
+  quietcare.ts             # shared TypeScript domain types
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Design system
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The implementation uses a self-hosted Manrope family, a 390 px mobile canvas, a 24 px primary gutter, reusable pill buttons, fixed bottom actions, progress headers, form controls, cards, sheets, medicine tags, packing rows, and a floating action button.
+
+The complete design reference is in [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md). All visual assets used by the prototype are committed under [public/assets](public/assets).
+
+## Technology
+
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Plain responsive CSS with shared design tokens
+- Next.js Image for optimized local assets
+
+## Handoff boundary
+
+This is deliberately a frontend prototype. A future implementation can connect the existing screens to OCR, authentication, a database, object storage, and Telegram without redesigning the interaction flow.
